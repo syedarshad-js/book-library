@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatCardModule, MatIconModule, MatToolbarModule, MatButtonModule, MatFormFieldModule, MatInputModule } from '@angular/material';
 import { SearchBoxComponent } from './search-box/search-box.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { UiModule } from './ui/ui.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    UiModule
   ],
   providers: [],
   bootstrap: [AppComponent]
