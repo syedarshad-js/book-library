@@ -28,53 +28,15 @@
     <div class="row">
       <div class="col-sm-12">
         <div class="card-columns">
-
-          <div class="card bg-light mb-3">
-            <div class="card-header">Author</div>
+          <div *ngFor="let book of books" class="card bg-light mb-3">
+            <div class="card-header">{{book.author}}</div>
             <div class="card-body">
-              <h5 class="card-title">Light card title</h5>
-              <p class="card-text">ISBN 9781775093305</p>
-              <a class="card-link clicker" (click)="open()">Show Details</a>
+              <h5 class="card-title">{{book.title}}</h5>
+              <p class="card-text">ISBN : {{book.isbn}}</p>
+              <p class="card-text">Status : {{book.status}}</p>
+              <a class="card-link clicker center-float" (click)="open(book)">Show Details</a>
             </div>
           </div>
-
-          <div class="card bg-light mb-3">
-            <div class="card-header">Author</div>
-            <div class="card-body">
-              <h5 class="card-title">Light card title</h5>
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              ISBN 9781775093305
-            </div>
-          </div>
-
-          <div class="card bg-light mb-3">
-            <div class="card-header">Author</div>
-            <div class="card-body">
-              <h5 class="card-title">Light card title</h5>
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              ISBN 9781775093305
-            </div>
-          </div>
-
-          <div class="card bg-light mb-3">
-            <div class="card-header">Author</div>
-            <div class="card-body">
-              <h5 class="card-title">Light card title</h5>
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              ISBN 9781775093305
-            </div>
-          </div>
-
-          <div class="card bg-light mb-3">
-            <div class="card-header">Author</div>
-            <div class="card-body">
-              <h5 class="card-title">Light card title</h5>
-              <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
-              ISBN 9781775093305
-            </div>
-          </div>
-
-
         </div>
       </div>
     </div>

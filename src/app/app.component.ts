@@ -21,8 +21,13 @@ export class AppComponent {
         console.log(err);
       });
   }
-  open() {
+  open(book) {
+    console.log(book)
     const modalRef = this.modalService.open(ModalComponent);
-    // modalRef.componentInstance.title = 'test';
+    modalRef.componentInstance.title = book.title;
+    modalRef.componentInstance.author = book.author;
+    modalRef.componentInstance.isbn = book.isbn;
+    modalRef.componentInstance.status = book.status;
+    modalRef.componentInstance.id = book._id;
   }
 }
