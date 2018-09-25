@@ -1,15 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
+
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~font-awesome/css/font-awesome.css";
-html, body { height: 100%; }
-body { margin: 0; font-family: 'Roboto', sans-serif; }
+html, body {
+  height: 100%;
+}
 
-/*@import “~@angular/material/prebuilt-themes/indigo-pink.css”;*/
-.floting-right{
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.floting-right {
   float: right;
 }
 
-.link-line{
+.link-line {
   text-decoration: underline !important;
   cursor: pointer;
+}
+
+.nav-tabs .nav-link {
+  color: #495057 !important;
 }
