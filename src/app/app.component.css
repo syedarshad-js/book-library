@@ -1,11 +1,21 @@
-.clicker{
+.clicker {
   cursor: pointer
 }
 
-.center-float{
+.center-float {
   text-align: center;
 }
 
-.search-bar{
+.search-bar {
   box-shadow: none
+}
+
+.jtron {
+  padding: 1rem 1rem, inherit;
+  background-color: #fff;
+  margin-top: -50px;
+}
+
+.card {
+  box-shadow: 5px 5px 17px grey;
 }

@@ -8,8 +8,8 @@ const httpOptions = {
 
 };
 
-const getAllBooks = '/api/book/all-books';
-const searchBooks = '/api/book/search-books'
+// const getAllBooks = '/api/books/';
+const searchBooks = '/api/books'
 
 @Injectable({
   providedIn: 'root'
@@ -37,7 +37,7 @@ export class ApiService {
   }
 
   getBooks(): Observable<any> {
-    return this.http.get(getAllBooks, httpOptions).pipe(
+    return this.http.get(searchBooks, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }

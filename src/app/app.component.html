@@ -24,12 +24,12 @@
     </div>
   </div>
 
-  <div class="jumbotron" *ngIf="postLoad">
+  <div class="jumbotron jtron" *ngIf="postLoad">
     <div class="row">
       <div class="col-sm-12">
         <div *ngIf="books?.length > 0; else noBooks">
           <div class="card-columns">
-            <div *ngFor="let book of books" class="card bg-light mb-3">
+            <div *ngFor="let book of books" class="card bg-light mb-3 bcard">
               <div class="card-header">{{book.author}}</div>
               <div class="card-body">
                 <h5 class="card-title">{{book.title}}</h5>
@@ -43,7 +43,7 @@
           </div>
         </div>
         <ng-template #noBooks>
-          <div *ngIf="searchModified" class="alert alert-info" role="alert">Hit Enter to search now</div>
+          <div *ngIf="searchModified" class="alert alert-info" role="alert">Ok, hit enter once you are done >> </div>
           <div *ngIf="!searchModified" class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
         </ng-template>
       </div>
