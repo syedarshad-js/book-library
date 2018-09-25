@@ -11,13 +11,13 @@ router.post('/issue-book', function(req, res, next) {
   });
 });
 
-// //get all books
-// router.get('/all-books', function(req, res, next) {
-//   Book.find(function(err, products) {
-//     if (err) return next(err);
-//     res.json(products);
-//   });
-// });
+//get all books
+router.get('/issued-details', function(req, res, next) {
+  // Book.find(function(err, products) {
+  //   if (err) return next(err);
+  //   res.json(products);
+  // });
+});
 //
 // //find a book by id
 // router.get('/find-book/:id', function(req, res, next) {
