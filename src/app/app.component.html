@@ -11,13 +11,13 @@
         </div>
         <div class="input-group search-categories mt-2" (keyup.enter)="searchBooks()">
           <div class="radio mr-3">
-            <label class="clicker"><input type="radio" name="optradio" value="title" checked [(ngModel)]="searchBy.filter">Title</label>
+            <label class="clicker"><input type="radio" name="optradio" value="title" checked [(ngModel)]="searchBy.filter" (change)="searchBooks()">Title</label>
           </div>
           <div class="radio mr-3">
-            <label class="clicker"><input type="radio" name="optradio" value="author" [(ngModel)]="searchBy.filter">Author</label>
+            <label class="clicker"><input type="radio" name="optradio" value="author" [(ngModel)]="searchBy.filter" (change)="searchBooks()">Author</label>
           </div>
           <div class="radio">
-            <label class="clicker"><input type="radio" name="optradio" value="isbn" [(ngModel)]="searchBy.filter">ISBN</label>
+            <label class="clicker"><input type="radio" name="optradio" value="isbn" [(ngModel)]="searchBy.filter" (change)="searchBooks()">ISBN</label>
           </div>
         </div>
       </div>
@@ -27,17 +27,22 @@
   <div class="jumbotron">
     <div class="row">
       <div class="col-sm-12">
-        <div class="card-columns">
-          <div *ngFor="let book of books" class="card bg-light mb-3">
-            <div class="card-header">{{book.author}}</div>
-            <div class="card-body">
-              <h5 class="card-title">{{book.title}}</h5>
-              <p class="card-text">ISBN : {{book.isbn}}</p>
-              <p class="card-text">Status : {{book.status}}</p>
-              <a class="card-link clicker center-float" (click)="open(book)">Show Details</a>
+        <div *ngIf="books?.length > 0; else noBooks">
+          <div class="card-columns">
+            <div *ngFor="let book of books" class="card bg-light mb-3">
+              <div class="card-header">{{book.author}}</div>
+              <div class="card-body">
+                <h5 class="card-title">{{book.title}}</h5>
+                <p class="card-text">ISBN : {{book.isbn}}</p>
+                <p class="card-text">Status : {{book.status}}</p>
+                <a class="card-link clicker center-float" (click)="open(book)">Show Details</a>
+              </div>
             </div>
           </div>
         </div>
+        <ng-template #noBooks>
+          <div class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
+        </ng-template>
       </div>
     </div>
 
