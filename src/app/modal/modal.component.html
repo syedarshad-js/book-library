@@ -9,16 +9,24 @@
           <ngb-tab title="Book Details">
             <ng-template ngbTabContent>
               <div class="card bg-light mb-3">
-                <div class="card-header">{{author}}
+                <div class="card-header">
+                  <h5>{{title}}</h5>
                   <div class="floting-right">
                     <span class="badge badge-pill badge-success" *ngIf="status == 'Available'">Available</span>
                     <span class="badge badge-pill badge-danger" *ngIf="status == 'Issued'">Issued</span>
                     <span class="badge badge-pill badge-info" *ngIf="status == 'Maintenance'">Maintenance</span> </div>
                 </div>
                 <div class="card-body">
-                  <h5 class="card-title">{{title}}</h5>
+                  <h5 class="card-text">{{author}}</h5>
                   <p class="card-text">ID : {{id}}</p>
                   <p class="card-text">ISBN : {{isbn}}</p>
+                  <div>
+                    <label for="typeahead-basic">Issue book to:</label>
+                    <input id="typeahead-basic" type="text" class="form-control issuance-bar" [(ngModel)]="issueTo" [ngbTypeahead]="search">
+                    <div class="row text-center justify-content-center mt-2">
+                      <button type="button" class="btn btn-success" (click)="issueBooks()" [disabled]="!issueTo">Issue</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </ng-template>
