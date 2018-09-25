@@ -7,7 +7,9 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 
 };
-const apiUrl = "/api/all-books";
+
+const getAllBooks = '/api/book/all-books';
+const searchBooks = '/api/book/search-books'
 
 @Injectable({
   providedIn: 'root'
@@ -35,7 +37,24 @@ export class ApiService {
   }
 
   getBooks(): Observable<any> {
-    return this.http.get(apiUrl, httpOptions).pipe(
+    return this.http.get(getAllBooks, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  searchBooks(filter): Observable<any> {
+    let urlParams;
+    if(filter.by == 'title'){
+      urlParams = '?title=';
+    }else if(filter.by == 'author'){
+      urlParams = '?author=';
+    }else if(filter.by =='isbn'){
+      urlParams = '?isbn=';
+    }else{
+      console.log("This never happens !")
+    }
+    console.log(urlParams + filter.find)
+    return this.http.get(searchBooks + urlParams + filter.find, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
