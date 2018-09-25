@@ -9,6 +9,10 @@ var BorrowerSchema = new mongoose.Schema({
     type: String,
     useCreateIndex: true
   },
+  readerName:{
+    type: String,
+    useCreateIndex: true
+  },
   borrowedOn: {
     type: Date
   },
