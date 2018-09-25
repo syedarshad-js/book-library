@@ -4,7 +4,7 @@ A book library developed using MongoDB 3.6, Express 4, Angular 6 and Node 8
 
 ## Overview
 
-Angular application designed gives a simple UI where user can search books by title/author/isbn.
+Angular application designed to give a simple UI where user can search books by title/author/isbn.
 
 The search results are showed as a grid of book-cards, each card will have author, title and isbn details on it. It comes with Show details option, when clicked opens up a modal with all the details related to that book.
 
