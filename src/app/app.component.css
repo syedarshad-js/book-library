@@ -7,15 +7,36 @@
 }
 
 .search-bar {
-  box-shadow: none
+  box-shadow: none;
+  outline: 0;
+  background: transparent;
+  border-radius: 5px;
+  border-right: 0;
+}
+
+.search-bar:focus{
+  border-color: #495057 !important;
 }
 
 .jtron {
   padding: 1rem 1rem, inherit;
   background-color: #fff;
-  margin-top: -50px;
+  margin-top: -30px;
 }
 
 .card {
-  box-shadow: 5px 5px 17px grey;
+  box-shadow: 5px 5px 10px grey;
+}
+
+.no-books-banner {
+  box-shadow: 5px 5px 10px grey;
+}
+
+.black-link{
+  color: black;
+}
+
+.search-button{
+  margin-left: -4px !important;
+  border-radius: 0 5px 5px 0;
 }

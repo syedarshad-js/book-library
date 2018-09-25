@@ -10,12 +10,17 @@
 
     <div class="modal-body">
       <div class="card bg-light mb-3">
-        <div class="card-header">{{author}}</div>
+        <div class="card-header">{{author}}<div class="floting-right">
+          <span class="badge badge-pill badge-success" *ngIf="status == 'Available'">Available</span>
+          <span class="badge badge-pill badge-danger" *ngIf="status == 'Issued'">Issued</span>
+          <span class="badge badge-pill badge-info" *ngIf="status == 'Maintenance'">Maintenance</span> </div></div>
         <div class="card-body">
           <h5 class="card-title">{{title}}</h5>
           <p class="card-text">ID : {{id}}</p>
           <p class="card-text">ISBN : {{isbn}}</p>
-          <p class="card-text">Status : {{status}}</p>
+
+
+
         </div>
       </div>
 

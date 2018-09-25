@@ -5,18 +5,20 @@
       <div class="col-sm-6">
         <div class="input-group">
           <input type="text" class="form-control search-bar" aria-label="Book Search" [(ngModel)]="searchThis" (keyup.enter)="searchBooks()" (ngModelChange)="valuechange($event)">
-          <div class="btn-group mr-3 ml-2">
-            <button type="button" class="btn btn-outline-default" (click)="searchBooks()" [disabled]="!searchThis">Search</button>
+          <div class="btn-group mr-2 ml-1">
+            <button type="button" class="btn btn-secondary search-button" (click)="searchBooks()" [disabled]="!searchThis">Search</button>
           </div>
+
           <div class="input-group search-categories mt-2 text-center justify-content-center" (keyup.enter)="searchBooks()">
-            <div class="radio mr-3">
-              <label class="clicker"><input type="radio" name="optradio" value="title" checked [(ngModel)]="searchBy.filter" (change)="searchBooks()">Title</label>
-            </div>
-            <div class="radio mr-3">
-              <label class="clicker"><input type="radio" name="optradio" value="author" [(ngModel)]="searchBy.filter" (change)="searchBooks()">Author</label>
-            </div>
-            <div class="radio">
-              <label class="clicker"><input type="radio" name="optradio" value="isbn" [(ngModel)]="searchBy.filter" (change)="searchBooks()">ISBN</label>
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label class="btn btn-secondary" [ngClass]="{'active': searchBy.filter == 'title'}">
+                <input type="radio" name="options" id="option1" autocomplete="off" name="optradio" value="title"  [(ngModel)]="searchBy.filter" (change)="searchBooks()"> Title</label>
+              <label class="btn btn-secondary" [ngClass]="{'active': searchBy.filter == 'author'}">
+                <input type="radio" name="options" id="option2" autocomplete="off" name="optradio" value="author" [(ngModel)]="searchBy.filter" (change)="searchBooks()"> Author
+                </label>
+              <label class="btn btn-secondary" [ngClass]="{'active': searchBy.filter == 'isbn'}">
+                <input type="radio" name="options" id="option3" autocomplete="off"name="optradio" value="isbn" [(ngModel)]="searchBy.filter" (change)="searchBooks()"> ISBN
+              </label>
             </div>
           </div>
         </div>
@@ -30,21 +32,26 @@
         <div *ngIf="books?.length > 0; else noBooks">
           <div class="card-columns">
             <div *ngFor="let book of books" class="card bg-light mb-3 bcard">
-              <div class="card-header">{{book.author}}</div>
+              <div class="card-header">{{book.author}}
+                <div class="floting-right">
+                  <span class="badge badge-pill badge-success" *ngIf="book.status == 'Available'">Available</span>
+                  <span class="badge badge-pill badge-danger" *ngIf="book.status == 'Issued'">Issued</span>
+                  <span class="badge badge-pill badge-info" *ngIf="book.status == 'Maintenance'">Maintenance</span> </div>
+              </div>
               <div class="card-body">
                 <h5 class="card-title">{{book.title}}</h5>
                 <p class="card-text">ISBN : {{book.isbn}}</p>
-                <p class="card-text">Status : {{book.status}}</p>
-              <button type="button" class="btn btn-default" (click)="open(book)">
-              Show Details
-              </button>
+                <a class="link-line" (click)="open(book)"> Show Details</a>
               </div>
             </div>
           </div>
         </div>
         <ng-template #noBooks>
+          <div class="no-books-banner">
+
           <div *ngIf="searchModified" class="alert alert-info" role="alert">Ok, hit enter once you are done >> </div>
           <div *ngIf="!searchModified" class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
+                    </div>
         </ng-template>
       </div>
     </div>
