@@ -13,12 +13,15 @@ export class AppComponent {
   books: any;
   searchBy = { filter: 'title' };
   searchThis: String;
+  searchModified: Boolean;
+  postLoad = false;
   constructor(private modalService: NgbModal, private api: ApiService) { }
   ngOnInit() {
     this.api.getBooks()
       .subscribe(res => {
         // console.log(res);
         this.books = res;
+        this.postLoad = true;
       }, err => {
         console.log(err);
       });
@@ -34,6 +37,7 @@ export class AppComponent {
   }
   searchBooks() {
     if (this.searchThis) {
+      this.searchModified = false;
       let filter = {
         find: this.searchThis,
         by: this.searchBy.filter
@@ -46,5 +50,13 @@ export class AppComponent {
         });
     }
     // console.log("search books")
+  }
+
+  valuechange(e) {
+    if (!e) {
+      this.ngOnInit();
+    } else {
+      this.searchModified = true;
+    }
   }
 }

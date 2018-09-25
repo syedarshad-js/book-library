@@ -1,30 +1,30 @@
 <app-layout>
 
   <div>
-    <div class="row">
+    <div class="row text-center justify-content-center">
       <div class="col-sm-6">
         <div class="input-group">
-          <input type="text" class="form-control" aria-label="Book Search" [(ngModel)]="searchThis" (keyup.enter)="searchBooks()">
-          <div class="btn-group mr-3">
-            <button type="button" class="btn btn-outline-success" (click)="searchBooks()" [disabled]="!searchThis">Search</button>
+          <input type="text" class="form-control search-bar" aria-label="Book Search" [(ngModel)]="searchThis" (keyup.enter)="searchBooks()" (ngModelChange)="valuechange($event)">
+          <div class="btn-group mr-3 ml-2">
+            <button type="button" class="btn btn-outline-default" (click)="searchBooks()" [disabled]="!searchThis">Search</button>
           </div>
-        </div>
-        <div class="input-group search-categories mt-2" (keyup.enter)="searchBooks()">
-          <div class="radio mr-3">
-            <label class="clicker"><input type="radio" name="optradio" value="title" checked [(ngModel)]="searchBy.filter" (change)="searchBooks()">Title</label>
-          </div>
-          <div class="radio mr-3">
-            <label class="clicker"><input type="radio" name="optradio" value="author" [(ngModel)]="searchBy.filter" (change)="searchBooks()">Author</label>
-          </div>
-          <div class="radio">
-            <label class="clicker"><input type="radio" name="optradio" value="isbn" [(ngModel)]="searchBy.filter" (change)="searchBooks()">ISBN</label>
+          <div class="input-group search-categories mt-2 text-center justify-content-center" (keyup.enter)="searchBooks()">
+            <div class="radio mr-3">
+              <label class="clicker"><input type="radio" name="optradio" value="title" checked [(ngModel)]="searchBy.filter" (change)="searchBooks()">Title</label>
+            </div>
+            <div class="radio mr-3">
+              <label class="clicker"><input type="radio" name="optradio" value="author" [(ngModel)]="searchBy.filter" (change)="searchBooks()">Author</label>
+            </div>
+            <div class="radio">
+              <label class="clicker"><input type="radio" name="optradio" value="isbn" [(ngModel)]="searchBy.filter" (change)="searchBooks()">ISBN</label>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="jumbotron">
+  <div class="jumbotron" *ngIf="postLoad">
     <div class="row">
       <div class="col-sm-12">
         <div *ngIf="books?.length > 0; else noBooks">
@@ -41,7 +41,8 @@
           </div>
         </div>
         <ng-template #noBooks>
-          <div class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
+            <div *ngIf="searchModified" class="alert alert-info" role="alert">Hit Enter to search now</div>
+            <div *ngIf="!searchModified" class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
         </ng-template>
       </div>
     </div>

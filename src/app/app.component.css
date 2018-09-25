@@ -5,3 +5,7 @@
 .center-float{
   text-align: center;
 }
+
+.search-bar{
+  box-shadow: none
+}
