@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5ba8e7296582ab408b3be7af"},"isbn":"9783161484100","title":"Pride and Prejudice","author":"Jane Austen","status":"Available","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5ba8e99461075d42a64bfc8d"},"isbn":"9780141439808","title":"Mansfield Park","author":"Jane Austen","status":"Available","__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5ba8f7f5c6a3275888852eb9"},"isbn":"9780141439792","title":"Northanger Abbey ","author":"Jane Austen","status":"Available","__v":{"$numberInt":"0"}}
