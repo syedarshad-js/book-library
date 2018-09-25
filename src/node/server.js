@@ -2,7 +2,8 @@ const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const logger = require('morgan');
-const apiRouter = require('./routes/books');
+const bookRouter = require('./routes/books');
+const borrowerRouter = require('./routes/borrowers');
 const app = express();
 const mongoose = require('mongoose');
 
@@ -35,7 +36,8 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: false
 }));
-app.use('/api', apiRouter);
+app.use('/api/book', bookRouter);
+app.use('/api/borrower',borrowerRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
