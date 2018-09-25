@@ -17,3 +17,8 @@ The search results are showed as a grid of book-cards, each card will have autho
 4. mongoimport --db book-library --collection books --file src/node/mock-data/books.json
 5. mongoimport --db book-library --collection borrowers --file src/node/mock-data/borrowers.json
 6. npm run start (This will start backend services at port 3000 and then serves the frontend app at default port 4200)
+
+## Under Progress
+
+1. Book Issuance feature
+2. API details
