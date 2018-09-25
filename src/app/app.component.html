@@ -35,14 +35,16 @@
                 <h5 class="card-title">{{book.title}}</h5>
                 <p class="card-text">ISBN : {{book.isbn}}</p>
                 <p class="card-text">Status : {{book.status}}</p>
-                <a class="card-link clicker center-float" (click)="open(book)">Show Details</a>
+              <button type="button" class="btn btn-default" (click)="open(book)">
+              Show Details
+              </button>
               </div>
             </div>
           </div>
         </div>
         <ng-template #noBooks>
-            <div *ngIf="searchModified" class="alert alert-info" role="alert">Hit Enter to search now</div>
-            <div *ngIf="!searchModified" class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
+          <div *ngIf="searchModified" class="alert alert-info" role="alert">Hit Enter to search now</div>
+          <div *ngIf="!searchModified" class="alert alert-danger" role="alert">Oh snap, we were unable to find books with {{searchBy.filter}} <strong>{{searchThis}}</strong> in our database. Change a few things up and try searching again.</div>
         </ng-template>
       </div>
     </div>
