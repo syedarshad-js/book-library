@@ -23,3 +23,7 @@ body {
 .nav-tabs .nav-link {
   color: #495057 !important;
 }
+
+.modal-dialog {
+  margin: 8% auto;
+}
