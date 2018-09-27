@@ -13,6 +13,7 @@ const readers = ['john', 'sam', 'floyd', 'arshad'];
 })
 export class ModalComponent implements OnInit {
   public issueTo: any;
+  public status:any;
   public event: EventEmitter<any> = new EventEmitter();
   constructor(
     public activeModal: NgbActiveModal, private api: ApiService
