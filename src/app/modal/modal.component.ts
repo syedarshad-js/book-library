@@ -13,14 +13,18 @@ const readers = ['john', 'sam', 'floyd', 'arshad'];
 })
 export class ModalComponent implements OnInit {
   public issueTo: any;
-  public status:any;
+  public status: any;
+  public id: any;
+  public history: any;
   public event: EventEmitter<any> = new EventEmitter();
   constructor(
     public activeModal: NgbActiveModal, private api: ApiService
   ) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.fetchIssueHistory(this.id);
+  }
 
   search = (text$: Observable<string>) =>
     text$.pipe(
@@ -35,6 +39,7 @@ export class ModalComponent implements OnInit {
       .subscribe(res => {
         this.status = "Issued";
         this.event.emit({ status: "Issued" });
+        this.fetchIssueHistory(id);
       }, err => {
         console.log(err);
       });
@@ -45,6 +50,16 @@ export class ModalComponent implements OnInit {
       .subscribe(res => {
         this.status = "Available";
         this.event.emit({ status: "Available" });
+        this.fetchIssueHistory(id);
+      }, err => {
+        console.log(err);
+      });
+  }
+
+  fetchIssueHistory(id) {
+    this.api.issueHistory(id)
+      .subscribe(res => {
+        this.history = res;
       }, err => {
         console.log(err);
       });
