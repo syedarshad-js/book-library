@@ -19,7 +19,6 @@ export class AppComponent {
   ngOnInit() {
     this.api.getBooks()
       .subscribe(res => {
-        // console.log(res);
         this.books = res;
         this.postLoad = true;
       }, err => {
@@ -27,14 +26,17 @@ export class AppComponent {
       });
   }
   open(book) {
-    // console.log(book)
     const modalRef = this.modalService.open(ModalComponent);
     modalRef.componentInstance.title = book.title;
     modalRef.componentInstance.author = book.author;
     modalRef.componentInstance.isbn = book.isbn;
     modalRef.componentInstance.status = book.status;
     modalRef.componentInstance.id = book._id;
+    modalRef.componentInstance.event.subscribe(data => {
+      book.status = data.status;
+    });
   }
+
   searchBooks() {
     if (this.searchThis) {
       this.searchModified = false;
@@ -49,7 +51,6 @@ export class AppComponent {
           console.log(err);
         });
     }
-    // console.log("search books")
   }
 
   valuechange(e) {

@@ -4,11 +4,10 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { catchError, tap, map } from 'rxjs/operators';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 
 };
 
-// const getAllBooks = '/api/books/';
 const searchBooks = '/api/books'
 
 @Injectable({
@@ -44,13 +43,13 @@ export class ApiService {
 
   searchBooks(filter): Observable<any> {
     let urlParams;
-    if(filter.by == 'title'){
+    if (filter.by == 'title') {
       urlParams = '?title=';
-    }else if(filter.by == 'author'){
+    } else if (filter.by == 'author') {
       urlParams = '?author=';
-    }else if(filter.by =='isbn'){
+    } else if (filter.by == 'isbn') {
       urlParams = '?isbn=';
-    }else{
+    } else {
       console.log("This never happens !")
     }
     console.log(urlParams + filter.find)
@@ -58,4 +57,30 @@ export class ApiService {
       map(this.extractData),
       catchError(this.handleError));
   }
+
+  issueBook(id, issueTo): Observable<any> {
+    var issuance = {
+      "name": issueTo,
+      "borrowedOn": new Date().toISOString()
+    }
+    return this.http.post(searchBooks + "/" + id + "/issue", issuance, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  returnBook(id): Observable<any> {
+    var issuance = {
+      "returnedOn": new Date().toISOString()
+    }
+    return this.http.put(searchBooks + "/" + id + "/issue", issuance, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  issueHistory(id): Observable<any> {
+    return this.http.get(searchBooks + "/" + id + "/issue", httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
 }
