@@ -3,6 +3,17 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Book = require('../models/Book.js');
 var Location = require('../models/Location.js');
+var Borrower = require('../models/Borrower.js');
+
+// /books/{id}/issue-history get
+router.get('/books/:id/issue-history', function(req, res, next) {
+  Borrower.find({
+    bookid: req.params.id
+  }, function(err, history) {
+    if (err) return next(err);
+    res.json(history);
+  });
+});
 
 // /books/{id}/location get
 router.get('/books/:id/location', function(req, res, next) {
@@ -20,16 +31,6 @@ router.get('/books/:id/location', function(req, res, next) {
     }
   });
 });
-
-// 
-// { _id: '5baa080cece8911e2d7c1f4b',
-//   bookid: '5ba8e7296582ab408b3be7af',
-//   shelfNumber: 1,
-//   rowNumber: 2,
-//   columNumber: 1,
-//   srcNumber: 121,
-//   status: 'Active' }
-
 
 // /books/{id}/location put
 router.put('/books/:id/location', function(req, res, next) {
@@ -49,12 +50,6 @@ router.put('/books/:id/location', function(req, res, next) {
   //   }
   // });
 });
-
-
-//   Book.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
-//     if (err) return next(err);
-//     res.json(post);
-//   });
 
 //search books by isbn/title/author
 router.get('/books/:isbn?/:title?/:author?', function(req, res, next) {
@@ -84,54 +79,75 @@ router.get('/books/:isbn?/:title?/:author?', function(req, res, next) {
 });
 
 
-
-// /books/{id}/location  put
-router.put('/books/:id/location', function(req, res, next) {
-  // Book.find(function(err, products) {
-  //   if (err) return next(err);
-  //   res.json(products);
-  // });
-});
-
 // /books/issue post
-router.post('/books/issue', function(req, res, next) {
-  // Book.create(req.body, function(err, post) {
-  //   if (err) {
-  //     if (err.code == 11000) {
-  //       res.status(400).json({
-  //         'error': 'That ISBN already exists'
-  //       });
-  //     }
-  //     return next(err);
-  //   } else {
-  //     res.json(post);
-  //   }
-  // });
+router.post('/books/:id/issue', function(req, res, next) {
+  var bookIssue = req.body;
+  bookIssue.bookid = req.params.id;
+  Borrower.create(bookIssue, function(err, post) {
+    if (err) {
+      if (err.code == 11000) {
+        res.status(400).json({
+          'error': 'This book has been issued already'
+        });
+      }
+      return next(err);
+    } else {
+      var bookUpdate = {}
+      bookUpdate.bookid = post.bookid;
+      var status = bookIssue.returnedOn ? "Available" : "Issued";
+      //update the book status based on returnedOn param in update request
+      Book.findOneAndUpdate({
+        "_id": req.params.id
+      }, {
+        $set: {
+          "status": status
+        }
+      }, function(err, postUpdate) {
+        if (err)
+          return next(err);
+        res.status(200).json({
+          'message': 'Succefully issued',
+          'details': post
+        });
+      });
+    }
+  });
 });
 
 // /books/{id}/issue put
 router.put('/books/:id/issue', function(req, res, next) {
-  // Book.create(req.body, function(err, post) {
-  //   if (err) {
-  //     if (err.code == 11000) {
-  //       res.status(400).json({
-  //         'error': 'That ISBN already exists'
-  //       });
-  //     }
-  //     return next(err);
-  //   } else {
-  //     res.json(post);
-  //   }
-  // });
+  var bookIssue = req.body;
+  bookIssue.bookid = req.params.id;
+  Borrower.findOneAndUpdate({
+    "bookid": req.params.id
+  }, {
+    "$set": bookIssue
+  }).exec(function(err, post) {
+    if (err) {
+      return next(err);
+    } else {
+      var bookUpdate = {}
+      bookUpdate.bookid = post.bookid;
+      var status = bookIssue.returnedOn ? "Available" : "Issued";
+      //update the book status based on returnedOn param in update request
+      Book.findOneAndUpdate({
+        "_id": req.params.id
+      }, {
+        $set: {
+          "status": status
+        }
+      }, function(err, postUpdate) {
+        if (err)
+          return next(err);
+        res.status(200).json({
+          'message': 'Succefully updated'
+        });
+      });
+    }
+  });
 });
 
-// /books/{id}/issue-history get
-router.get('/books/:id/issue-history', function(req, res, next) {
-  // Book.find(function(err, products) {
-  //   if (err) return next(err);
-  //   res.json(products);
-  // });
-});
+
 
 
 router.post('/books/add', function(req, res, next) {

@@ -2,16 +2,10 @@ var mongoose = require('mongoose');
 
 var BorrowerSchema = new mongoose.Schema({
   bookid: {
-    type: String,
-    useCreateIndex: true
+    type: String
   },
-  readerId:{
-    type: String,
-    useCreateIndex: true
-  },
-  readerName:{
-    type: String,
-    useCreateIndex: true
+  name:{
+    type: String
   },
   borrowedOn: {
     type: Date
