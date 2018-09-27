@@ -9,6 +9,10 @@ var Borrower = require('../models/Borrower.js');
 router.get('/books/:id/issue-history', function(req, res, next) {
   Borrower.find({
     bookid: req.params.id
+  }, null, {
+    sort: {
+      borrowedOn: 1
+    }
   }, function(err, history) {
     if (err) return next(err);
     res.json(history);
