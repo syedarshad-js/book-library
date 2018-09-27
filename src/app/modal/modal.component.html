@@ -20,13 +20,21 @@
                   <h5 class="card-text">{{author}}</h5>
                   <p class="card-text">ID : {{id}}</p>
                   <p class="card-text">ISBN : {{isbn}}</p>
-                  <div>
+
+                  <div *ngIf="status == 'Available'">
                     <label for="typeahead-basic">Issue book to:</label>
                     <input id="typeahead-basic" type="text" class="form-control issuance-bar" [(ngModel)]="issueTo" [ngbTypeahead]="search">
                     <div class="row text-center justify-content-center mt-2">
-                      <button type="button" class="btn btn-success" (click)="issueBooks()" [disabled]="!issueTo">Issue</button>
+                      <button type="button" class="btn btn-success" (click)="issueBook(id,issueTo)" [disabled]="!issueTo">Issue</button>
                     </div>
                   </div>
+
+                  <div *ngIf="status == 'Issued'">
+                    <div class="row text-center justify-content-center mt-2">
+                      <button type="button" class="btn btn-success" (click)="returnBook(id)" >Return</button>
+                    </div>
+                  </div>
+
                 </div>
               </div>
             </ng-template>
