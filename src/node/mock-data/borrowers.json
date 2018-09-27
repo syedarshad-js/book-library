@@ -1,0 +1,34 @@
+{
+  "_id": {
+    "$oid": "5baca65372984c41621c43ff"
+  },
+  "name": "sam",
+  "borrowedOn": {
+    "$date": {
+      "$numberLong": "1538041427728"
+    }
+  },
+  "bookid": "5ba8e7296582ab408b3be7af",
+  "__v": {
+    "$numberInt": "0"
+  },
+  "returnedOn": {
+    "$date": {
+      "$numberLong": "1538041446998"
+    }
+  }
+} {
+  "_id": {
+    "$oid": "5baca67672984c41621c4400"
+  },
+  "name": "arshad",
+  "borrowedOn": {
+    "$date": {
+      "$numberLong": "1538041462887"
+    }
+  },
+  "bookid": "5ba8e7296582ab408b3be7af",
+  "__v": {
+    "$numberInt": "0"
+  }
+}
