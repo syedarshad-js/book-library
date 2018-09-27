@@ -5,7 +5,6 @@ import { catchError, tap, map } from 'rxjs/operators';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-
 };
 
 const searchBooks = '/api/books'
@@ -78,9 +77,8 @@ export class ApiService {
   }
 
   issueHistory(id): Observable<any> {
-    return this.http.get(searchBooks + "/" + id + "/issue", httpOptions).pipe(
+    return this.http.get(searchBooks + "/" + id + "/issue-history", httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
-
 }
