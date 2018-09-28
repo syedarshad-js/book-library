@@ -59,10 +59,11 @@ export class ApiService {
 
   issueBook(id, issueTo): Observable<any> {
     var issuance = {
+      "bookid":id,
       "name": issueTo,
       "borrowedOn": new Date().toISOString()
     }
-    return this.http.post(searchBooks + "/" + id + "/issue", issuance, httpOptions).pipe(
+    return this.http.post(searchBooks + "/issue", issuance, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }

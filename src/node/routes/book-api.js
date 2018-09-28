@@ -110,9 +110,9 @@ router.get('/books/:isbn?/:title?/:author?', function(req, res, next) {
 
 
 // /books/issue post
-router.post('/books/:id/issue', function(req, res, next) {
+router.post('/books/issue', function(req, res, next) {
   var bookIssue = req.body;
-  bookIssue.bookid = req.params.id;
+  // bookIssue.bookid = req.params.id;
   Borrower.create(bookIssue, function(err, post) {
     if (err) {
       if (err.code == 11000) {
