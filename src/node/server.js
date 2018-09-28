@@ -7,6 +7,7 @@ const logger = require('morgan');
 const apiRouter = require('./routes/book-api');
 const app = express();
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 
 mongoose.connect('mongodb://localhost/book-library', {
     promiseLibrary: require('bluebird')

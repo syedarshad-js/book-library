@@ -3,7 +3,8 @@ var mongoose = require('mongoose');
 var LocationSchema = new mongoose.Schema({
   bookid: {
     type: String,
-    useCreateIndex: true
+    required: true,
+    unique: true
   },
   shelfNumber: {
     type: Number,
@@ -20,8 +21,7 @@ var LocationSchema = new mongoose.Schema({
   srcNumber: {
     type: Number,
     required: true,
-    unique: true,
-    useCreateIndex: true
+    unique: true
   },
   status: {
     type: String,

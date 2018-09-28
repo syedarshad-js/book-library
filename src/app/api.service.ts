@@ -67,10 +67,12 @@ export class ApiService {
       catchError(this.handleError));
   }
 
-  returnBook(id): Observable<any> {
+  returnBook(id,lastIssueId): Observable<any> {
     var issuance = {
-      "returnedOn": new Date().toISOString()
+      "returnedOn": new Date().toISOString(),
+      "lastIssueId" : lastIssueId
     }
+
     return this.http.put(searchBooks + "/" + id + "/issue", issuance, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));

@@ -16,6 +16,7 @@ export class ModalComponent implements OnInit {
   public status: any;
   public id: any;
   public history: any;
+  public lastIssueId: any;
   public event: EventEmitter<any> = new EventEmitter();
   constructor(
     public activeModal: NgbActiveModal, private api: ApiService
@@ -45,8 +46,10 @@ export class ModalComponent implements OnInit {
       });
   }
 
-  returnBook(id) {
-    this.api.returnBook(id)
+  returnBook(id, lastIssueId) {
+    console.log(id)
+    console.log(lastIssueId)
+    this.api.returnBook(id, lastIssueId)
       .subscribe(res => {
         this.status = "Available";
         this.event.emit({ status: "Available" });
@@ -60,6 +63,11 @@ export class ModalComponent implements OnInit {
     this.api.issueHistory(id)
       .subscribe(res => {
         this.history = res;
+        this.history.forEach(issue => {
+          if (!issue.returnedOn) {
+            this.lastIssueId = issue._id;
+          }
+        });
       }, err => {
         console.log(err);
       });

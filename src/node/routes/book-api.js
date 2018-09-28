@@ -19,6 +19,29 @@ router.get('/books/:id/issue-history', function(req, res, next) {
   });
 });
 
+// /books/{id}/location post
+router.post('/books/:id/location', function(req, res, next) {
+  var bookLocation = req.body;
+  bookLocation.bookid = req.params.id;
+  Location.create(bookLocation, function(err, post) {
+    if (err) {
+      console.log(err);
+      if (err.code == 11000) {
+        res.status(400).json({
+          'error': 'This location cannot be assigned to the book as it is not available'
+        });
+      }
+      return next(err);
+    } else {
+      res.status(200).json({
+        'message': 'Successfully placed the book in its location',
+        'details': post
+      });
+    }
+  });
+
+});
+
 // /books/{id}/location get
 router.get('/books/:id/location', function(req, res, next) {
   Location.find({
@@ -38,21 +61,24 @@ router.get('/books/:id/location', function(req, res, next) {
 
 // /books/{id}/location put
 router.put('/books/:id/location', function(req, res, next) {
-  console.log(req.params.id)
-  console.log(req.body)
-  // Location.findOneAndUpdate({
-  //   bookid: req.params.id
-  // }, req.body, function(err, post) {
-  //   if (err)
-  //     return next(err)
-  //   if (post.length > 0) {
-  //     res.json(post);
-  //   } else {
-  //     res.status(400).json({
-  //       'error': 'Book is not available'
-  //     });
-  //   }
-  // });
+  Location.findOneAndUpdate({
+    bookid: req.params.id
+  }, req.body, {
+    "new": true
+  }, function(err, post) {
+    if (err)
+      return next(err)
+    if (post) {
+      res.status(200).json({
+        'message': 'Successfully updated book location',
+        'details': post
+      });
+    } else {
+      res.status(400).json({
+        'error': 'No updates were performed related to location'
+      });
+    }
+  });
 });
 
 //search books by isbn/title/author
@@ -110,7 +136,7 @@ router.post('/books/:id/issue', function(req, res, next) {
         if (err)
           return next(err);
         res.status(200).json({
-          'message': 'Succefully issued',
+          'message': 'Successfully issued',
           'details': post
         });
       });
@@ -121,9 +147,11 @@ router.post('/books/:id/issue', function(req, res, next) {
 // /books/{id}/issue put
 router.put('/books/:id/issue', function(req, res, next) {
   var bookIssue = req.body;
-  bookIssue.bookid = req.params.id;
+  var lastIssueId = req.body.lastIssueId;
+  delete bookIssue['lastIssueId'];
   Borrower.findOneAndUpdate({
-    "bookid": req.params.id
+    "bookid": req.params.id,
+    "_id": lastIssueId
   }, {
     "$set": bookIssue
   }).exec(function(err, post) {
@@ -144,15 +172,12 @@ router.put('/books/:id/issue', function(req, res, next) {
         if (err)
           return next(err);
         res.status(200).json({
-          'message': 'Succefully updated'
+          'message': 'Successfully updated'
         });
       });
     }
   });
 });
-
-
-
 
 router.post('/books/add', function(req, res, next) {
   Book.create(req.body, function(err, post) {
@@ -184,7 +209,5 @@ router.get('/books/:id', function(req, res, next) {
     res.json(post);
   });
 });
-
-
 
 module.exports = router;
