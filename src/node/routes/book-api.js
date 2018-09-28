@@ -127,7 +127,7 @@ router.post('/books/issue', function(req, res, next) {
       var status = bookIssue.returnedOn ? "Available" : "Issued";
       //update the book status based on returnedOn param in update request
       Book.findOneAndUpdate({
-        "_id": req.params.id
+        "_id": post.bookid
       }, {
         $set: {
           "status": status
