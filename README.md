@@ -24,5 +24,5 @@ BaseURL: http://localhost:3000/api
 2. GET http://localhost:3000/api/books/{id}/location
 3. PUT http://localhost:3000/api/books/{id}/location
 4. POST http://localhost:3000/api/books/issue
-5. PUT http://localhost:3000/api/book/{id}/issue
-6. GET http://localhost:3000/api/book/{id}/issue
+5. PUT http://localhost:3000/api/books/{id}/issue
+6. GET http://localhost:3000/api/books/{id}/issue
